@@ -1,4 +1,7 @@
-class Chef():
+from patterns.observer.observer import Observer
+
+
+class Chef(Observer):
     """
     A class representing a Chef.
     Attrs:
@@ -19,3 +22,12 @@ class Chef():
             string: A string representation of a Chef instance.
         """
         return f"Chef: {self.__name} is currently employed at the Restaurant."
+
+    def update(self, message:str) ->None:
+        """
+        Receives a message from the subject and processes it.
+        
+        Args:
+            message (str): The message sent from the subject.
+        """
+        print(f'Message to chef {self.__name}: {message}')

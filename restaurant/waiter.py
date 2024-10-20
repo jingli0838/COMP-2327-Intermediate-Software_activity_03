@@ -1,4 +1,7 @@
-class Waiter():
+from patterns.observer.observer import Observer
+
+
+class Waiter(Observer):
     """
     A class representing a Waiter.
     Attrs:
@@ -19,3 +22,15 @@ class Waiter():
             string: A string representation of a Waiter instance.
         """
         return f"Waiter: {self.__name} is currently on duty."
+    
+    def update(self, message:str):
+        """
+        Receives a message and processes it as an update to the waiter.
+
+        Args:
+            message (str): The message sent to the waiter.
+
+        Returns:
+            string(str): a string including the messge and the waiter to whom the message will be sent.
+        """
+        print('Message to waiter {self.__name}: {message}')
