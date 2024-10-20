@@ -6,11 +6,15 @@ Edited by: {Jing Li}
 Date: {10/19/2024}
 """
 from billing_account.billing_account import BillingAccount
+from patterns.strategy.Interest_Payment_Strategy import InterestPaymentStrategy
+from patterns.strategy.fixed_amount_penalty_strategy import FixedAmountPenaltyStrategy
 from patterns.strategy.partial_payment_strategy import PartialPaymentStrategy
 from patterns.strategy.penalty_strategy import PenaltyStrategy
 from payee.payee import Payee
 from payment.payment import Payment
+from restaurant.busser import Busser
 from restaurant.chef import Chef
+from restaurant.dishwasher import Dishwasher
 from restaurant.restaurant import Restaurant
 from restaurant.waiter import Waiter
 
@@ -33,12 +37,38 @@ def strategy():
     except ValueError as e:
         print(e)
 
+
     # 2. Use the Payment object's pay_bill method to pay the ELECTRICITY bill with 
     # an amount that does not pay off the entire balance shown above - print the 
     # result of the pay_bill method.
-    print(penalty_payment.pay_bill(account, Payee.ELECTRICITY, 180.0))
+    print(penalty_payment.pay_bill(account, Payee.ELECTRICITY, 80.0))
+    print("")
+  
+    # 1. Create a Payment object with a InterestePaymentStrategy payment strategy.
+    try:
+        interest_payment_strategy = Payment(InterestPaymentStrategy())
+    except ValueError as e:
+        print (e)
+    # 2. Use the Payment object's pay_bill method to pay the INTERNET bill with 
+    # an amount that does not pay off the entire balance shown above and the penalty should be calulated by the intereste rate
+    # - print the result of the pay_bill method.
 
-    
+
+    print(interest_payment_strategy.pay_bill(account, Payee.INTERNET, 20.0))
+    print("")
+
+    # 1. Create a Payment object with a FixedAmountPenaltyStrategt payment strategy.
+    try:
+        fixed_amount_penalty_strategy = Payment(FixedAmountPenaltyStrategy())
+    except ValueError as e:
+        print (e)
+    # 2. Use the Payment object's pay_bill method to pay the ELECTRICITY bill with 
+    # an amount that does not pay off the entire balance shown above and the penalty should be calulated by the intereste rate
+    # - print the result of the pay_bill method.
+
+    print(fixed_amount_penalty_strategy.pay_bill(account, Payee.ELECTRICITY, 20.0))
+    print("")
+
 
 
     # 3. Create a Payment object with a PartialPaymentStrategy payment strategy.
@@ -75,22 +105,32 @@ def observer():
     waiter_01 = Waiter("Rachel")
     waiter_02 = Waiter("Phebee")
 
+    #2. Create two Busser objects with names of your choice.
+    busser_01 = Busser("Joye")
+    busser_02 = Busser("Joke")
+    
+    #3. Create two dishwasher objects with names of your choice.
+    dishwasher_01 = Dishwasher("lona")
+    dishwasher_02 = Dishwasher("Susan")
+
 
     #4. Print each of the Chef and Waiter objects.
     print(chef_01)
     print(chef_02)
     print(waiter_01)
     print(waiter_02)
-    
+    print(busser_01)
+    print(busser_02)
+    print(dishwasher_01)
+    print(dishwasher_02)
+    print("")
 
     #5. Attach one chef (of your choice) as a restaurant observer.
-    chef_03 = Chef("Bob")
-    restaurant.attach(chef_03)
+    restaurant.attach(chef_01)
 
 
     #6. Attach one waiter (of your choice) as a restaurant observer.
-    waiter_03 = Waiter("Lucy")
-    restaurant.attach(waiter_03)
+    restaurant.attach(waiter_02)
 
     #7. Add the following events:
     #   New dish added to the menu: Grilled Cheese Sandwich.
@@ -98,8 +138,26 @@ def observer():
     #   We are out of tomatoes!
     # When the program executes, note who receives notification of the events
     # and who does not receive notification.
-    
+    restaurant.event("New dish added to the menu: Grilled Cheese Sandwich.")
+    restaurant.event("Special promotion on desserts.")
+    restaurant.event("We are out of tomatoes!")
 
+    #   Add the following events:
+    #   No more clean dishes.
+    #   Table 03 need to be clean.
+    print("")
+    restaurant.detach(chef_01)
+    restaurant.detach(waiter_02)
+    restaurant.attach(dishwasher_01)
+    restaurant.attach(dishwasher_02)
+    restaurant.event("No more clean dishes.")
+    
+    restaurant.detach(dishwasher_01)
+    restaurant.detach(dishwasher_02)
+    restaurant.attach(busser_01)
+    restaurant.attach(busser_02)
+    restaurant.event("Table 03 need to be clean.")
+    
 
 
 if __name__ == "__main__":

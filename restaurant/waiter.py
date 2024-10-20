@@ -17,13 +17,14 @@ class Waiter(Observer):
 
     def __str__(self):
         """
-        Returns a string representation of a Waiter instance.
+        A string representation of a Waiter's status.
+        
         returns:
-            string: A string representation of a Waiter instance.
+            string: A string representation of a Waiter's status.
         """
         return f"Waiter: {self.__name} is currently on duty."
     
-    def update(self, message:str):
+    def update(self, message:str) -> None:
         """
         Receives a message and processes it as an update to the waiter.
 
@@ -33,4 +34,4 @@ class Waiter(Observer):
         Returns:
             string(str): a string including the messge and the waiter to whom the message will be sent.
         """
-        print('Message to waiter {self.__name}: {message}')
+        print(f'Message to waiter {self.__name}: {message}')

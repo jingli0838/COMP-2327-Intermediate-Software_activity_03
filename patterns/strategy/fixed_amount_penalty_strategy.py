@@ -1,19 +1,16 @@
-""
+
+
 from billing_account.billing_account import BillingAccount
 from patterns.strategy.payment_strategy import PayementStrategy
 from payee.payee import Payee
 
 
-class PenaltyStrategy(PayementStrategy):
-    """
-    PenaltyStrategy: A payment strategy that applies a penalty if the amount
-    owing is not paid in full.
-    """
+class FixedAmountPenaltyStrategy(PayementStrategy):
 
     def process_payment(self, account:BillingAccount, payee:Payee, amount:float) -> str:
         """
         Processes a payment for a specified account, payee, and amount.
-        If the payment is insufficient to cover the balance, a penalty of $10 is applied.
+        And Applies a fixed penalty to the remaining balance based on the payment amount.
 
         Args:
             account (BillingAccount): The billing account to be charged.
@@ -21,7 +18,7 @@ class PenaltyStrategy(PayementStrategy):
             amount (float): The amount to be paid.
 
         Returns:
-            str: A message indicating the result of the payment process.
+            str: A message indicating the result of the payment process and any penalty applied.
         """
         # Apply a payment to the account
         account.deduct_balance(payee,amount)
@@ -30,11 +27,20 @@ class PenaltyStrategy(PayementStrategy):
         new_balance = account.get_balance(payee)
 
         if new_balance <= 0.0:
-            return f'Processed payment of ${amount}. New balance: ${new_balance}.'
-        else:
+            return f'Processed payment of ${amount:.2f}. New balance: ${new_balance:.2f}.'
+        
+        elif new_balance > 0.0 and new_balance <= 100.0:
+        
+           # add the penalty fee to new balance
            account.add_balance(payee,10.0)
            new_balance = account.get_balance(payee)
-           return f'Insufficient payment. Added penalty fee of $10.00. New balance: ${new_balance}.'
+           return f'Insufficient payment. Added penalty fee of $10.0. New balance: ${new_balance:.2f}.'
+        
+        elif new_balance > 100.0:
+            # add the penalty fee to new balance
+           account.add_balance(payee,20.0)
+           new_balance = account.get_balance(payee)
+           return f'Insufficient payment. Added penalty fee of $20.0. New balance: ${new_balance:.2f}.'
 
 
 
