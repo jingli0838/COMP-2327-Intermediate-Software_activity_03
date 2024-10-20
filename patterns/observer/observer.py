@@ -10,8 +10,9 @@ class Observer(ABC):
     @abstractmethod
     def update(self, message:str) ->None:
         """
-        Receives a message from the subject and processes it.
-
+        An abstract method receiving a message from the subject and processing it.
+        This method must be implemented by subclasses.
+        
         Args:
             message (str): The message sent from the subject.
         """

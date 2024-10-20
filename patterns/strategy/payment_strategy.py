@@ -13,6 +13,7 @@ class PayementStrategy(ABC):
     def process_payment(self, account:BillingAccount, payee:Payee, amount:float) -> str:
         """
         An abstractmethod to process a payment for a specified account, payee, and amount.
+        This method must be implemented by subclasses.
 
         Args:
             account (BillingAccount): The billing account to be charged.
