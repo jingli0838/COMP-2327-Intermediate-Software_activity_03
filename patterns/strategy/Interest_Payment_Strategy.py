@@ -29,7 +29,7 @@ class InterestPaymentStrategy(PayementStrategy):
         new_balance = account.get_balance(payee)
 
         if new_balance <= 0.0:
-            return f'Processed payment of ${amount}. New balance: ${new_balance}.'
+            return f'Processed payment of ${amount:.2f}. New balance: ${new_balance:.2f}.'
         else:
            interest_rate = 0.1
            penalty_fee = interest_rate * new_balance

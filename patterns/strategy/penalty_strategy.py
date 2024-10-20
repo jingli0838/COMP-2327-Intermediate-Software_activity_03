@@ -30,11 +30,11 @@ class PenaltyStrategy(PayementStrategy):
         new_balance = account.get_balance(payee)
 
         if new_balance <= 0.0:
-            return f'Processed payment of ${amount}. New balance: ${new_balance}.'
+            return f'Processed payment of ${amount:.2f}. New balance: ${new_balance:.2f}.'
         else:
            account.add_balance(payee,10.0)
            new_balance = account.get_balance(payee)
-           return f'Insufficient payment. Added penalty fee of $10.00. New balance: ${new_balance}.'
+           return f'Insufficient payment. Added penalty fee of $10.00. New balance: ${new_balance:.2f}.'
 
 
 

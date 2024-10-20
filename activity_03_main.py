@@ -105,13 +105,9 @@ def observer():
     waiter_01 = Waiter("Rachel")
     waiter_02 = Waiter("Phebee")
 
-    #2. Create two Busser objects with names of your choice.
-    busser_01 = Busser("Joye")
-    busser_02 = Busser("Joke")
-    
-    #3. Create two dishwasher objects with names of your choice.
-    dishwasher_01 = Dishwasher("lona")
-    dishwasher_02 = Dishwasher("Susan")
+    #3. Create a Busser object and a dishwasher object with names of your choice.
+    busser_01 = Busser("Joey")
+    dishwasher_01 = Busser("Chandler")
 
 
     #4. Print each of the Chef and Waiter objects.
@@ -120,9 +116,7 @@ def observer():
     print(waiter_01)
     print(waiter_02)
     print(busser_01)
-    print(busser_02)
     print(dishwasher_01)
-    print(dishwasher_02)
     print("")
 
     #5. Attach one chef (of your choice) as a restaurant observer.
@@ -149,14 +143,11 @@ def observer():
     restaurant.detach(chef_01)
     restaurant.detach(waiter_02)
     restaurant.attach(dishwasher_01)
-    restaurant.attach(dishwasher_02)
-    restaurant.event("No more clean dishes.")
+    restaurant.event("Get ready for additional dishes due to no more clean dishes.")
     
     restaurant.detach(dishwasher_01)
-    restaurant.detach(dishwasher_02)
     restaurant.attach(busser_01)
-    restaurant.attach(busser_02)
-    restaurant.event("Table 03 need to be clean.")
+    restaurant.event("Prepare for table 03 needs to be cleanup.")
     
 
 

@@ -30,9 +30,9 @@ class PartialPaymentStrategy(PayementStrategy):
         new_balance = account.get_balance(payee)
 
         if new_balance <= 0.0:
-            return f'Processed payment of ${amount}. New balance: ${new_balance}.'
+            return f'Processed payment of ${amount:.2f}. New balance: ${new_balance:.2f}.'
         else:
-            return f'Partial payment of ${amount} accepted. New balance: ${new_balance}.'
+            return f'Partial payment of ${amount:.2f} accepted. New balance: ${new_balance:.2f}.'
         
         
        
